@@ -5,7 +5,7 @@ of the logger which can be used to write either an error or info log. Logs are a
 
 Use
 
-    var logger = require('winson-wrapper');
+    var logger = require('winson-wrapper').instance();
     logger.error.error('some error');
 
     logger.info.info('some info');
