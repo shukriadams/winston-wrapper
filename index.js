@@ -24,7 +24,8 @@ class Logger {
                     datePattern: 'info.yyyy-MM-dd',
                     prepend: true,
                     level: 'info'
-                })
+                }),
+                new (winston.transports.Console)()
             ]
         });
 
@@ -35,7 +36,10 @@ class Logger {
                     datePattern: 'error.yyyy-MM-dd',
                     prepend: true,
                     level: 'error'
-                })]
+                }),
+                new (winston.transports.Console)()
+            ]
+
         });
 
     }
