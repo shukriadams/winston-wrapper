@@ -12,7 +12,7 @@
     "main": "index.js",
     "dependencies": {
       "winston": "2.4.0",
-      "winston-daily-rotate-file" : "https://github.com/shukriadams/winston-daily-rotate-file.git#1.7.3"
+      "winston-daily-rotate-file" : "1.7.2"
     }
   }
   
