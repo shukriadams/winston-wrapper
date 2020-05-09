@@ -53,11 +53,11 @@ module.exports = {
     },
 
     // returns an instance of logger
-    instance : function(){
+    instance : function(logpath){
 
         // if logger not initialized creates logger with default options
         if (!_instance) 
-            _instance = new Logger();
+            _instance = new Logger(logpath);
 
         return _instance;
     },
