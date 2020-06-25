@@ -51,7 +51,12 @@ module.exports = {
     initialize : function(logpath){
         _instance = new Logger(logpath);
     },
-
+    
+    // returns a new instance of logger per call
+    new : function(logpath){
+        return new Logger(logpath)
+    },
+    
     // returns an instance of logger
     instance : function(logpath){
 
