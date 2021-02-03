@@ -24,25 +24,12 @@ class Logger {
         require('winston-daily-rotate-file')
 
         if (canWrite){
-            this.info = new (winston.Logger)({
+
+            this.log = new (winston.Logger)({
                 transports: [
                     new (winston.transports.DailyRotateFile)({
                         filename: path.join(logFolder, '.log'),
-                        datePattern: 'info.yyyy-MM-dd',
-                        prepend: true,
-                        level
-                    }),
-                    new (winston.transports.Console)({
-                        level
-                    })
-                ]
-            })
-    
-            this.error = new (winston.Logger)({
-                transports: [
-                    new (winston.transports.DailyRotateFile)({
-                        filename: path.join(logFolder, '.log'),
-                        datePattern: 'error.yyyy-MM-dd',
+                        datePattern: 'yyyy-MM-dd',
                         prepend: true,
                         level
                     }),
@@ -55,15 +42,12 @@ class Logger {
         } else {
             console.log('WARNING : could not generate log files, logging calls sent to /dev/null')
             // writing not possible, expose shim of winston interface.
-            this.info = {
+            this.log = {
                 info : function(){},
-                error : function(){}
+                error : function(){},
+                debug : function(){}
             }
     
-            this.error = {
-                info : function(){},
-                error : function(){}
-            }
         }
 
     }
