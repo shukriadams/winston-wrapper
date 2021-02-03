@@ -5,7 +5,7 @@ let winston = require('winston'),
     path = require('path')
 
 class Logger {
-    constructor(logFolder){
+    constructor(logFolder, level = 'error'){
 
         if (!logFolder)
             logFolder = path.join(process.cwd(), '__logs')
@@ -30,9 +30,11 @@ class Logger {
                         filename: path.join(logFolder, '.log'),
                         datePattern: 'info.yyyy-MM-dd',
                         prepend: true,
-                        level: 'info'
+                        level
                     }),
-                    new (winston.transports.Console)()
+                    new (winston.transports.Console)({
+                        level
+                    })
                 ]
             })
     
@@ -42,13 +44,16 @@ class Logger {
                         filename: path.join(logFolder, '.log'),
                         datePattern: 'error.yyyy-MM-dd',
                         prepend: true,
-                        level: 'error'
+                        level
                     }),
-                    new (winston.transports.Console)()
+                    new (winston.transports.Console)({
+                        level
+                    })
                 ]
             })
     
         } else {
+            console.log('WARNING : could not generate log files, logging calls sent to /dev/null')
             // writing not possible, expose shim of winston interface.
             this.info = {
                 info : function(){},
@@ -67,21 +72,21 @@ class Logger {
 module.exports = {
     
     // initializes logger with path to log to, call this once in app lifetime if needed
-    initialize : function(logpath){
-        _instance = new Logger(logpath)
+    initialize : function(logpath, level){
+        _instance = new Logger(logpath, level)
     },
     
     // returns a new instance of logger per call
-    new : function(logpath){
-        return new Logger(logpath)
+    new : function(logpath, level){
+        return new Logger(logpath, level)
     },
     
     // returns an instance of logger
-    instance : function(logpath){
+    instance : function(logpath, level){
 
         // if logger not initialized creates logger with default options
         if (!_instance) 
-            _instance = new Logger(logpath)
+            _instance = new Logger(logpath, level)
 
         return _instance
     },
